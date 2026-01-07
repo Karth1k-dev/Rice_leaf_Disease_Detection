@@ -1,0 +1,16 @@
+# Virtual environment
+pd_venv/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Django files
+db.sqlite3
+
+# ML models
+*.h5
+*.keras
+
+# Environment variables
+.env
