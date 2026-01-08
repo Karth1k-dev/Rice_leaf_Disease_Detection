@@ -1,78 +1,51 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
     <title>Rice Leaf Disease Detection</title>
-
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background: linear-gradient(120deg, #84fab0, #8fd3f4);
-            height: 100vh;
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .card {
-            background: white;
-            width: 350px;
-            padding: 25px;
-            border-radius: 12px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            font-family: Arial;
+            background-color: #f2f6f8;
             text-align: center;
         }
-
-        h2 {
-            margin-bottom: 20px;
-            color: #2c3e50;
+        .container {
+            background: white;
+            width: 450px;
+            margin: 60px auto;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px lightgray;
         }
-
-        input[type="file"] {
-            margin: 15px 0;
-        }
-
         button {
-            background-color: #27ae60;
+            padding: 10px 20px;
+            background-color: green;
             color: white;
             border: none;
-            padding: 10px 20px;
-            border-radius: 6px;
-            font-size: 16px;
-            cursor: pointer;
+            border-radius: 5px;
         }
-
-        button:hover {
-            background-color: #219150;
-        }
-
-        .result {
-            margin-top: 20px;
-            padding: 10px;
-            background-color: #f1f8f4;
-            border-radius: 6px;
-            color: #2d6a4f;
-            font-weight: bold;
+        h3 {
+            color: green;
         }
     </style>
 </head>
 
 <body>
-    <div class="card">
-        <h2>🌱 Rice Leaf Disease</h2>
+    <div class="container">
+        <h2>🌱 Rice Leaf Disease Detection</h2>
 
-        <form method="post" enctype="multipart/form-data">
+        <form method="POST" enctype="multipart/form-data" action="{% url 'predict' %}">
             {% csrf_token %}
-            <input type="file" name="leaf" required>
-            <br>
+            <input type="file" name="image" required>
+            <br><br>
             <button type="submit">Predict</button>
         </form>
 
-        {% if prediction %}
-            <div class="result">
-                Disease Detected: <br> {{ prediction }}
-            </div>
+        {% if result %}
+            <hr>
+            <h3>Disease: {{ result }}</h3>
+            <p><b>Confidence:</b> {{ confidence }}%</p>
+            <p><b>Description:</b> {{ description }}</p>
+            <p><b>Recommended Treatment:</b> {{ pesticide }}</p>
         {% endif %}
     </div>
 </body>
